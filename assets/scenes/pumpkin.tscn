@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bvxl65rwgtg1b"]
+
+[ext_resource type="Script" uid="uid://bq8f738t7yyut" path="res://assets/scripts/track_faces.gd" id="1_xrqtu"]
+[ext_resource type="Texture2D" uid="uid://dl7quhvarjkef" path="res://assets/textures/Pumpkin_Roots_diffuse.png" id="3_1kdsk"]
+[ext_resource type="Texture2D" uid="uid://cs7cjxlg8beo0" path="res://assets/textures/Pumpkin_Stem_diffuse.png" id="4_xrqtu"]
+[ext_resource type="Texture2D" uid="uid://dsett5hyaxn43" path="res://assets/textures/Pumpkin_Top_diffuse.png" id="5_2t70y"]
+[ext_resource type="Script" uid="uid://cce4o30sfu7g5" path="res://assets/scenes/Flicker.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dgoouml2apaa1" path="res://assets/textures/Pumpkin_Head_diffuse.png" id="6_1j0oe"]
+[ext_resource type="PackedScene" uid="uid://csaoinjflvmtx" path="res://assets/models/TalkingPumpkin.glb" id="7"]
+[ext_resource type="Script" uid="uid://kwe2od764p32" path="res://assets/scripts/movemouth.gd" id="8"]
+
+[sub_resource type="PlaneMesh" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgskd"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ooua1"]
+albedo_texture = ExtResource("3_1kdsk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_megyo"]
+albedo_texture = ExtResource("4_xrqtu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gk03p"]
+albedo_texture = ExtResource("5_2t70y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujk5d"]
+albedo_texture = ExtResource("6_1j0oe")
+
+[sub_resource type="AudioStreamMicrophone" id="3"]
+
+[node name="Node3D" type="Node3D" unique_id=337386652]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=550251042]
+transform = Transform3D(-1, 3.17637e-21, -8.74227e-08, 4.77038e-09, 0.99851, -0.0545668, 8.72925e-08, -0.0545668, -0.99851, 0, 0.852197, -16.9364)
+fov = 12.4
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D" unique_id=1554747005]
+transform = Transform3D(-1, -1.3041664e-08, -8.6444516e-08, -7.75441e-16, -0.9888102, 0.14917928, -8.742276e-08, 0.14917928, 0.9888102, -1.9544e-06, 1.518209, 22.355732)
+light_color = Color(1, 0.97289985, 0.24042645, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=320478002]
+transform = Transform3D(-10, -8.74228e-07, 3.82137e-14, 0, -4.37114e-07, -10, 8.74228e-07, -10, 4.37114e-07, 0, 1.84079, 4.68052)
+mesh = SubResource("1")
+surface_material_override/0 = SubResource("StandardMaterial3D_rgskd")
+
+[node name="Pumpkin" type="Node3D" parent="." unique_id=1672357104]
+script = ExtResource("1_xrqtu")
+
+[node name="TalkingPumpkin2" parent="Pumpkin" unique_id=2005497515 instance=ExtResource("7")]
+script = ExtResource("8")
+
+[node name="roots" parent="Pumpkin/TalkingPumpkin2/Armature/Pumpkin" parent_id_path=PackedInt32Array(2005497515, 1278973051) index="0" unique_id=701672781]
+surface_material_override/0 = SubResource("StandardMaterial3D_ooua1")
+
+[node name="stem" parent="Pumpkin/TalkingPumpkin2/Armature/Pumpkin" parent_id_path=PackedInt32Array(2005497515, 1278973051) index="1" unique_id=1439743826]
+surface_material_override/0 = SubResource("StandardMaterial3D_megyo")
+
+[node name="top" parent="Pumpkin/TalkingPumpkin2/Armature/Pumpkin" parent_id_path=PackedInt32Array(2005497515, 1278973051) index="2" unique_id=1073811723]
+surface_material_override/0 = SubResource("StandardMaterial3D_gk03p")
+
+[node name="head" parent="Pumpkin/TalkingPumpkin2/Armature/Skeleton3D" parent_id_path=PackedInt32Array(2005497515, 1021875534) index="0" unique_id=1164805077]
+surface_material_override/0 = SubResource("StandardMaterial3D_ujk5d")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Pumpkin/TalkingPumpkin2" unique_id=687943324]
+process_mode = 4
+stream = SubResource("3")
+autoplay = true
+bus = &"Record"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Pumpkin/TalkingPumpkin2" unique_id=1204230340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63185, 0)
+light_energy = 1.325
+light_indirect_energy = 0.758
+light_specular = 1.0
+shadow_bias = 0.0
+script = ExtResource("6")
+
+[editable path="Pumpkin/TalkingPumpkin2"]
